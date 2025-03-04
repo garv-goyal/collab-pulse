@@ -9,14 +9,14 @@ html, body, #root, .app-container {
   height: 100%;
   width: 100%;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #141414, #282828);
+  color: #fff;
 }
 
 /* Main App Container */
 .app-container {
   display: flex;
   flex-direction: column;
-  background: linear-gradient(135deg, #1a1a1a, #3d3d3d);
-  color: #fff;
 }
 
 /* Header Styling */
@@ -24,30 +24,49 @@ html, body, #root, .app-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
-  background-color: rgba(0, 0, 0, 0.7);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  padding: 0.75rem 1rem;
+  background-color: rgba(23, 22, 43, 0.9);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .logo-container h1 {
-  font-size: 2rem;
-  letter-spacing: 1px;
+  font-size: 1.75rem;
+  letter-spacing: 1.5px;
+  font-weight: bold;
 }
 
+.logo-image {
+  width: 37px;
+  height: 37px;
+  object-fit: contain;
+}
+
+/* Navigation */
 .nav {
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
 }
 
 .nav-link {
   color: #fff;
   text-decoration: none;
   font-size: 1.1rem;
-  transition: color 0.3s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .nav-link:hover {
-  color: #646cff;
+  background-color: #646cff;
+  color: #fff;
 }
 
 /* Main Content Styling */
@@ -61,7 +80,7 @@ html, body, #root, .app-container {
 .footer {
   text-align: center;
   padding: 1rem;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.95);
   font-size: 0.9rem;
   color: #aaa;
 }

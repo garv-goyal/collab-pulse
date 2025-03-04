@@ -8,7 +8,7 @@ function CollabScore() {
   useEffect(() => {
     async function fetchScore() {
       try {
-        // This is a placeholder URL. Replace with your actual API endpoint.
+        // Replace with your actual API endpoint.
         const response = await axios.get('/api/collab-score')
         setScore(response.data.score)
       } catch (error) {
@@ -22,9 +22,9 @@ function CollabScore() {
   }, [])
 
   return (
-    <div className="collab-score">
+    <div className="collab-score-container">
       <h3>Collaboration Health Score</h3>
-      {loading ? <p>Loading score...</p> : <p>{score}</p>}
+      {loading ? <p>Loading score...</p> : <p className="score-value">{score}</p>}
     </div>
   )
 }
