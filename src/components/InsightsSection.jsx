@@ -1,11 +1,16 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChartLine, faArrowTrendUp, faBell, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
-// A reusable FeatureCard component (optional, or inline it directly)
-const FeatureCard = ({ title, description }) => {
+const FeatureCard = ({ icon, title, description }) => {
   return (
     <div className="feature-card">
-      <h3>{title}</h3>
+      <div className="feature-card-header">
+        <FontAwesomeIcon icon={icon} className="feature-icon" />
+        <h3>{title}</h3>
+      </div>
       <p>{description}</p>
+      <FontAwesomeIcon icon={faArrowRight} className="feature-arrow" />
     </div>
   );
 };
@@ -21,14 +26,17 @@ const InsightsSection = () => {
 
       <div className="features-grid">
         <FeatureCard
+          icon={faChartLine}
           title="Activity Analysis"
           description="Monitor code commits, pull requests, and issue discussions to keep track of project participation levels and balanced contributions."
         />
         <FeatureCard
+          icon={faArrowTrendUp}
           title="Task Progress"
           description="Visualize project timelines and see when tasks are stagnating or overdue, helping teams stay on track."
         />
         <FeatureCard
+          icon={faBell}
           title="Notifications"
           description="Get collaboration alerts when your team's health score dips below a threshold."
         />

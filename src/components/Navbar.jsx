@@ -1,12 +1,12 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 
 const Navbar = () => {
   return (
     <nav className="navbar">
-      {/* Left: Logo or Brand */}
       <div className="nav-left">CollabPulse</div>
 
-      {/* Center: Nav Links */}
       <ul className="nav-links">
         <li><a href="#dashboard">Dashboard</a></li>
         <li><a href="#projects">Projects</a></li>
@@ -15,12 +15,15 @@ const Navbar = () => {
         <li><a href="#help">Help & Support</a></li>
       </ul>
 
-      {/* Right: Login Button */}
       <div className="nav-right">
-        <a href="#login">Login</a>
+        <a href="#login" className="login-link">Login</a>
+        <button className="login-button">
+          <FontAwesomeIcon icon={faSignInAlt} />
+        </button>
       </div>
     </nav>
   );
 };
 
 export default Navbar;
+

@@ -1,11 +1,16 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMessage, faLightbulb, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
-// Optionally reuse FeatureCard or create new cards
-const FeatureCard = ({ title, description }) => {
+const FeatureCard = ({ icon, title, description }) => {
   return (
     <div className="feature-card">
-      <h3>{title}</h3>
+      <div className="feature-card-header">
+        <FontAwesomeIcon icon={icon} className="feature-icon" />
+        <h3>{title}</h3>
+      </div>
       <p>{description}</p>
+      <FontAwesomeIcon icon={faArrowRight} className="feature-arrow" />
     </div>
   );
 };
@@ -19,25 +24,14 @@ const CollaborateSection = () => {
         Our platform scales effortlessly, supporting teams of every size.
       </p>
 
-      {/* Mockup images or placeholders */}
-      <div className="collaborate-images">
-        <img 
-          src="https://via.placeholder.com/300?text=Mockup+1" 
-          alt="CollabPulse Mockup 1" 
-        />
-        <img 
-          src="https://via.placeholder.com/300?text=Mockup+2" 
-          alt="CollabPulse Mockup 2" 
-        />
-      </div>
-
-      {/* Additional feature cards for communication & insights */}
       <div className="collaborate-features">
         <FeatureCard
+          icon={faMessage}
           title="Communication Sentiment"
           description="Analyze team chat and forum messages to detect sentiment trends, flagging potential conflicts or disengagement early on."
         />
         <FeatureCard
+          icon={faLightbulb}
           title="Actionable Insights"
           description="Receive proactive suggestions, such as scheduling team check-ins or redistributing tasks, to improve collaboration."
         />
