@@ -2,12 +2,36 @@ import React, { useState } from 'react';
 
 const ContactSection = () => {
   const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: handle sending the email to your backend or an email service
-    alert(`Thank you for subscribing with ${email}!`);
-    setEmail('');
+
+    try {
+      const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      if (response.ok) {
+        setMessage('Successfully subscribed! 🎉 Check your email for confirmation.');
+        setEmail('');
+        
+        if (window.gtag) {
+          window.gtag('event', 'submit', {
+            'event_category': 'Newsletter',
+            'event_label': 'Contact Form',
+            'value': 1
+          });
+        }
+      } else {
+        setMessage('Subscription failed. Please try again.');
+      }
+    // eslint-disable-next-line no-unused-vars
+    } catch (error) {
+      setMessage('Error connecting to Formspree. Please try again.');
+    }
   };
 
   return (
@@ -16,8 +40,7 @@ const ContactSection = () => {
       <p style={{ color: '#ccc', marginBottom: '2rem', maxWidth: '700px', marginInline: 'auto' }}>
         Sign up for our newsletter to receive updates, tips, and best practices on collaboration.
       </p>
-      
-      {/* Newsletter Subscription Form */}
+
       <form onSubmit={handleSubmit} style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem' }}>
         <input
           type="email"
@@ -49,32 +72,7 @@ const ContactSection = () => {
         </button>
       </form>
 
-      {/* Direct Contact Section */}
-      <div style={{ marginTop: '2rem' }}>
-        <p style={{ color: '#ccc', fontSize: '1rem' }}>Need direct support?</p>
-        
-        {/* Button that opens email client */}
-        <a
-          href="mailto:support@collabpulse.com"
-          style={{
-            display: 'inline-block',
-            marginTop: '1rem',
-            padding: '0.8rem 1.5rem',
-            backgroundColor: '#fff',
-            color: '#0f0f0f',
-            borderRadius: '4px',
-            textDecoration: 'none',
-            fontWeight: '600'
-          }}
-        >
-          Contact Us
-        </a>
-
-        {/* Direct email link */}
-        <p style={{ marginTop: '1rem', fontSize: '1rem', color: '#ccc' }}>
-          Or email us at: <a href="mailto:support@collabpulse.com" style={{ color: '#fff', textDecoration: 'underline' }}>support@collabpulse.com</a>
-        </p>
-      </div>
+      {message && <p style={{ color: 'lightgreen', marginTop: '1rem' }}>{message}</p>}
     </section>
   );
 };

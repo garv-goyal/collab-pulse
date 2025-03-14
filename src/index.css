@@ -309,3 +309,17 @@ html {
     max-width: 100%;
   }
 }
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none; /* Hide nav links on small screens */
+  }
+
+  .hero-title {
+    font-size: 1.8rem;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr; /* Stack feature cards on mobile */
+  }
+}
