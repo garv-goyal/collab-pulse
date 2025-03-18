@@ -35,6 +35,7 @@ const TimelineContainer = styled.div`
     bottom: 0;
     left: 50%;
     margin-left: -2px;
+    z-index: 0;
   }
 `;
 
@@ -66,17 +67,18 @@ const TimelineContent = styled.div`
 const TimelineIcon = styled.div`
   position: absolute;
   top: 15px;
-  ${(props) => (props.align === 'left' ? 'right: -25px;' : 'left: -25px;')}
+  ${(props) => (props.align === 'left' ? 'right: -30px;' : 'left: -30px;')}
   background-color: #333;
   color: #fff;
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   border: 3px solid #1a1a1a;
+  z-index: 2;
 `;
 
 const HowItWorks = () => {
@@ -125,8 +127,10 @@ const HowItWorks = () => {
                 <FontAwesomeIcon icon={step.icon} />
               </TimelineIcon>
               <TimelineContent>
-                <h3 style={{ margin: '0 0 0.5rem', color: '#fff' }}>{step.title}</h3>
-                <p style={{ margin: 0 }}>{step.description}</p>
+                <h3 style={{ margin: '0 0 0.5rem', color: '#fff', fontSize: '1.3rem' }}>
+                  {step.title}
+                </h3>
+                <p style={{ margin: 0, fontSize: '1rem' }}>{step.description}</p>
               </TimelineContent>
             </TimelineItem>
           );
