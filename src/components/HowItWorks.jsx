@@ -1,112 +1,139 @@
-import React, { useState } from 'react';
+import React from 'react';
+import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faUserPlus, 
+  faCogs, 
   faPlug, 
-  faDatabase, 
-  faRobot, 
-  faCheckCircle 
+  faEye, 
+  faRocket 
 } from '@fortawesome/free-solid-svg-icons';
 
-const HowItWorksSection = () => {
+const TimelineSection = styled.section`
+  background-color: #1a1a1a;
+  padding: 4rem 2rem;
+  position: relative;
+`;
+
+const TimelineTitle = styled.h2`
+  font-size: 2.2rem;
+  text-align: center;
+  color: #fff;
+  margin-bottom: 3rem;
+`;
+
+const TimelineContainer = styled.div`
+  position: relative;
+  max-width: 1000px;
+  margin: auto;
+  &::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    background-color: #444;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -2px;
+  }
+`;
+
+const TimelineItem = styled.div`
+  padding: 1rem 2rem;
+  position: relative;
+  width: 50%;
+  box-sizing: border-box;
+  text-align: ${(props) => (props.align === 'left' ? 'right' : 'left')};
+  left: ${(props) => (props.align === 'left' ? '0' : '50%')};
+
+  @media (max-width: 768px) {
+    width: 100%;
+    left: 0;
+    text-align: left;
+    padding-left: 70px;
+    margin-bottom: 2rem;
+  }
+`;
+
+const TimelineContent = styled.div`
+  padding: 1rem;
+  background-color: #2a2a2a;
+  position: relative;
+  border-radius: 6px;
+  color: #ccc;
+`;
+
+const TimelineIcon = styled.div`
+  position: absolute;
+  top: 15px;
+  ${(props) => (props.align === 'left' ? 'right: -25px;' : 'left: -25px;')}
+  background-color: #333;
+  color: #fff;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  border: 3px solid #1a1a1a;
+`;
+
+const HowItWorks = () => {
   const steps = [
     {
       id: 1,
       icon: faUserPlus,
-      title: "Sign Up & Onboard",
-      description: "Create your account and complete a brief onboarding process to set up your team and preferences."
+      title: "Create Your Account",
+      description: "Sign up using your email or social login to begin your journey with CollabPulse."
     },
     {
       id: 2,
-      icon: faPlug,
-      title: "Integrate Your Tools",
-      description: "Easily connect GitHub, Slack, and other project management apps to start gathering real-time data."
+      icon: faCogs,
+      title: "Customize Your Experience",
+      description: "Complete a brief onboarding survey to tailor the platform to your team's needs."
     },
     {
       id: 3,
-      icon: faDatabase,
-      title: "Aggregate Data",
-      description: "We consolidate your team’s data from various platforms into one centralized dashboard."
+      icon: faPlug,
+      title: "Connect Your Tools",
+      description: "Integrate GitHub, Slack, and other apps to seamlessly sync your team's data."
     },
     {
       id: 4,
-      icon: faRobot,
-      title: "Automated Analysis",
-      description: "Our smart algorithms process your data and identify key performance metrics and trends."
+      icon: faEye,
+      title: "Explore Your Dashboard",
+      description: "Dive into your personalized dashboard to view real-time analytics and performance metrics."
     },
     {
       id: 5,
-      icon: faCheckCircle,
-      title: "Get Actionable Insights",
-      description: "Receive clear, actionable recommendations to boost collaboration and streamline your workflows."
+      icon: faRocket,
+      title: "Launch & Optimize",
+      description: "Receive actionable insights and recommendations to boost collaboration and productivity."
     }
   ];
 
-  const [activeStep, setActiveStep] = useState(null);
-
-  const toggleStep = (id) => {
-    setActiveStep(activeStep === id ? null : id);
-  };
-
   return (
-    <section style={{ backgroundColor: "#1a1a1a", padding: "3rem 2rem" }}>
-      <h2 style={{ 
-            fontSize: "2.2rem", 
-            marginBottom: "2rem", 
-            textAlign: "center", 
-            color: "#fff" 
-          }}>
-        How it Works
-      </h2>
-      <div style={{ maxWidth: "800px", margin: "0 auto" }}>
-        {steps.map((step) => (
-          <div 
-            key={step.id}
-            style={{
-              backgroundColor: "#2a2a2a",
-              borderRadius: "8px",
-              marginBottom: "1rem",
-              overflow: "hidden",
-              boxShadow: "0 2px 6px rgba(0,0,0,0.2)"
-            }}
-          >
-            <div
-              onClick={() => toggleStep(step.id)}
-              style={{
-                cursor: "pointer",
-                padding: "1rem",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                backgroundColor: "#333",
-                transition: "background-color 0.3s ease"
-              }}
-            >
-              <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-                <FontAwesomeIcon icon={step.icon} style={{ fontSize: "1.8rem", color: "#fff" }} />
-                <h3 style={{ color: "#fff", margin: 0 }}>{step.title}</h3>
-              </div>
-              <div style={{ color: "#fff", fontSize: "1.5rem" }}>
-                {activeStep === step.id ? "-" : "+"}
-              </div>
-            </div>
-            <div
-              style={{
-                maxHeight: activeStep === step.id ? "150px" : "0px",
-                transition: "max-height 0.4s ease, padding 0.4s ease",
-                overflow: "hidden",
-                padding: activeStep === step.id ? "1rem" : "0 1rem",
-                backgroundColor: "#2a2a2a",
-                color: "#ccc"
-              }}
-            >
-              <p style={{ margin: 0 }}>{step.description}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
+    <TimelineSection>
+      <TimelineTitle>Getting Started with CollabPulse</TimelineTitle>
+      <TimelineContainer>
+        {steps.map((step, index) => {
+          const align = index % 2 === 0 ? 'left' : 'right';
+          return (
+            <TimelineItem key={step.id} align={align}>
+              <TimelineIcon align={align}>
+                <FontAwesomeIcon icon={step.icon} />
+              </TimelineIcon>
+              <TimelineContent>
+                <h3 style={{ margin: '0 0 0.5rem', color: '#fff' }}>{step.title}</h3>
+                <p style={{ margin: 0 }}>{step.description}</p>
+              </TimelineContent>
+            </TimelineItem>
+          );
+        })}
+      </TimelineContainer>
+    </TimelineSection>
   );
 };
 
-export default HowItWorksSection;
+export default HowItWorks;
