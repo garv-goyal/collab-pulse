@@ -312,7 +312,7 @@ html {
 
 @media (max-width: 768px) {
   .nav-links {
-    display: none; /* Hide nav links on small screens */
+    display: none; 
   }
 
   .hero-title {
@@ -320,6 +320,6 @@ html {
   }
 
   .features-grid {
-    grid-template-columns: 1fr; /* Stack feature cards on mobile */
+    grid-template-columns: 1fr;
   }
 }

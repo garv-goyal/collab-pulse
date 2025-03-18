@@ -20,6 +20,7 @@ const ScrollToTop = () => {
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         style={{
+          fontFamily: 'kanit',  
           position: 'fixed',
           bottom: '20px',
           right: '20px',
