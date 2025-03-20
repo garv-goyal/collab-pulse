@@ -100,7 +100,6 @@ html {
 .hero {
   text-align: center;
   padding: 6rem 2rem 0rem; 
-  background-color: #0f0f0f;
   color: #fff;
   position: relative;
   height: 92vh;
@@ -175,7 +174,6 @@ html {
 
 .insights-section {
   padding: 3rem 2rem;
-  background-color: #161616;
   text-align: center;
   min-height: auto; 
 }
@@ -248,7 +246,6 @@ html {
 }
 
 .collaborate-section {
-  background-color: #0f0f0f;
   padding: 3rem 2rem;
   text-align: center;
 }
@@ -277,7 +274,6 @@ html {
 
 
 .footer {
-  background-color: #161616;
   text-align: center;
   padding: 2rem;
   font-size: 0.9rem;

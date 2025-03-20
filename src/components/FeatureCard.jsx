@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight, faTimes } from '@fortawesome/free-solid-svg-icons';
 
-const FeatureCard = ({ icon, title, description, detailedDescription }) => {
+const FeatureCard = ({ icon, title, description, detailedDescription}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleCardClick = () => {
@@ -102,13 +102,10 @@ const FeatureCard = ({ icon, title, description, detailedDescription }) => {
               {detailedDescription || (
                 <>
                   {description} <br /><br />
-                  <strong>Enhancements & Suggestions:</strong>
-                  <ul style={{ marginTop: '0.5rem', paddingLeft: '1.2rem', color: '#ddd' }}>
-                    <li>Interactive line and bar graphs for trend analysis</li>
-                    <li>Drill-down charts to explore detailed data points</li>
-                    <li>Customizable dashboards with filter options</li>
-                    <li>Historical data comparisons for tracking progress over time</li>
-                  </ul>
+                  <strong>Detailed Explanation:</strong>
+                  <p>
+                    This feature offers a comprehensive view along with interactive elements. Explore its functionalities through dynamic charts and data visualizations that provide deep insights and actionable metrics.
+                  </p>
                 </>
               )}
             </div>

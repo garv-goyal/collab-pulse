@@ -7,7 +7,7 @@ const InsightsSection = () => {
     <section 
       className="insights-section" 
       id="insights" 
-      style={{ padding: '3rem 2rem', backgroundColor: '#161616', color: '#fff' }}
+      style={{ padding: '3rem 2rem', color: '#fff' }}
     >
       <h2 
         className="insights-title" 

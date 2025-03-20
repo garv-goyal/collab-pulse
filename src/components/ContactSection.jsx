@@ -35,7 +35,7 @@ const ContactSection = () => {
   };
 
   return (
-    <section style={{ backgroundColor: '#0f0f0f', padding: '3rem 2rem', textAlign: 'center' }}>
+    <section style={{padding: '3rem 2rem', textAlign: 'center' }}>
       <h2 style={{ fontSize: '2rem', marginBottom: '1rem', fontWeight: '700' }}>Stay in Touch</h2>
       <p style={{ color: '#ccc', marginBottom: '2rem', maxWidth: '700px', marginInline: 'auto' }}>
         Sign up for our newsletter to receive updates, tips, and best practices on collaboration.
@@ -52,6 +52,7 @@ const ContactSection = () => {
             padding: '0.8rem',
             borderRadius: '4px',
             border: '1px solid #333',
+            fontFamily: "'Kanit', sans-serif",
             backgroundColor: '#0f0f0f',
             color: '#fff'
           }}

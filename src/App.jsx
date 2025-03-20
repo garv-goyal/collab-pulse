@@ -6,6 +6,7 @@ import InsightsSection from './components/InsightsSection';
 import CollaborateSection from './components/CollaborateSection';
 import HowitWorks from './components/HowItWorks';
 import ContactSection from './components/ContactSection';
+import ScrollToTop from './components/ScrollToTop';
 import Footer from './components/Footer';
 
 const MainPage = () => (
@@ -16,6 +17,7 @@ const MainPage = () => (
     <CollaborateSection />
     <HowitWorks />
     <ContactSection />
+    <ScrollToTop />
     <Footer />
   </>
 );

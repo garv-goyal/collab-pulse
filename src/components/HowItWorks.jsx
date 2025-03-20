@@ -10,7 +10,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 const TimelineSection = styled.section`
-  background-color: #1a1a1a;
   padding: 4rem 2rem;
   position: relative;
 `;
