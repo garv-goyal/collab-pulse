@@ -4,7 +4,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import InsightsSection from './components/InsightsSection';
 import CollaborateSection from './components/CollaborateSection';
-import HowitWorks from './components/HowitWorks';
+import HowitWorks from './components/HowItWorks';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 
