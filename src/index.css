@@ -6,9 +6,12 @@
   box-sizing: border-box;
 }
 
+html, body {
+  background-color: #0f0f0f; 
+}
+
 body {
   font-family: 'Kanit', sans-serif;
-  background-color: #0f0f0f;
   background: linear-gradient(135deg, #0d0d0d 20%, #161616 40%, #1f1f1f 60%, #252525 80%, #0d0d0d),
             radial-gradient(circle at 30% 30%, rgba(13, 14, 14, 0.755), transparent 50%),
             radial-gradient(circle at 70% 70%, rgb(0, 0, 0), transparent 50%);

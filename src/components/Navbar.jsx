@@ -16,8 +16,9 @@ const Navbar = () => {
       </ul>
 
       <div className="nav-right">
-        <a href="#login" className="login-link">Login</a>
-        <button className="login-button">
+        {/* Update login link to use Google OAuth */}
+        <a href="http://localhost:5001/api/auth/google" className="login-link">Login</a>
+        <button className="login-button" onClick={() => window.location.href = "http://localhost:5001/api/auth/google"}>
           <FontAwesomeIcon icon={faSignInAlt} />
         </button>
       </div>
