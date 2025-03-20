@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -11,7 +11,6 @@ import Footer from './components/Footer';
 
 const MainPage = () => (
   <>
-    <Navbar />
     <Hero />
     <InsightsSection />
     <CollaborateSection />
@@ -23,10 +22,37 @@ const MainPage = () => (
 );
 
 function App() {
+  const [, setAuthToken] = useState(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('token');
+
+    if (token) {
+      localStorage.setItem('authToken', token);
+      setAuthToken(token);
+
+      window.history.replaceState({}, document.title, window.location.pathname);
+    } else {
+      const savedToken = localStorage.getItem('authToken');
+      if (savedToken) {
+        setAuthToken(savedToken);
+      }
+    }
+  }, []);
+
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<MainPage />} />
+        <Route
+          path="/"
+          element={
+            <>
+              <Navbar />
+                <MainPage />
+            </>
+          }
+        />
       </Routes>
     </Router>
   );
