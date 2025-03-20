@@ -57,7 +57,7 @@ const TimelineItem = styled.div`
 
 const TimelineContent = styled.div`
   padding: 1rem;
-  background-color: #2a2a2a;
+  background-color: #212121;
   position: relative;
   border-radius: 6px;
   color: #ccc;

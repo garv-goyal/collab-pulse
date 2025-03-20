@@ -23,7 +23,7 @@ const FeatureCard = ({ icon, title, description, detailedDescription}) => {
           padding: '1rem', 
           border: '1px solid #333', 
           borderRadius: '8px', 
-          backgroundColor: '#2a2a2a', 
+          backgroundColor: '#212121', 
           marginBottom: '1rem'
         }}
       >

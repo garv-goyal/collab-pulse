@@ -7,7 +7,7 @@ const CollaborateSection = () => {
     <section 
       className="collaborate-section" 
       id="collaborate" 
-      style={{ padding: '3rem 2rem', backgroundColor: '#0f0f0f', color: '#fff' }}
+      style={{ padding: '3rem 2rem', color: '#fff' }}
     >
       <h2 
         className="collaborate-title" 
