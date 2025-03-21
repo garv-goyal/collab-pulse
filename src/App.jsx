@@ -7,9 +7,10 @@ import InsightsSection from './components/InsightsSection';
 import CollaborateSection from './components/CollaborateSection';
 import HowitWorks from './components/HowItWorks';
 import ContactSection from './components/ContactSection';
+import SurveyPage from './components/SurveyPage';
+import Dashboard from './components/Dashboard';
 import ScrollToTop from './components/ScrollToTop';
 import Footer from './components/Footer';
-import SurveyPage from './components/SurveyPage';
 
 const MainPage = () => (
   <>
@@ -26,6 +27,7 @@ const MainPage = () => (
 
 function App() {
   const [, setAuthToken] = useState(null);
+  const [userInfo, setUserInfo] = useState(null);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -34,11 +36,14 @@ function App() {
     if (token) {
       localStorage.setItem('authToken', token);
       setAuthToken(token);
+      // In a real app, decode token or fetch user info from backend
+      setUserInfo({ name: "Test User", email: "test@example.com" });
       window.history.replaceState({}, document.title, window.location.pathname);
     } else {
       const savedToken = localStorage.getItem('authToken');
       if (savedToken) {
         setAuthToken(savedToken);
+        setUserInfo({ name: "Test User", email: "test@example.com" });
       }
     }
   }, []);
@@ -48,6 +53,7 @@ function App() {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/survey" element={<SurveyPage />} />
+        <Route path="/dashboard" element={<Dashboard userInfo={userInfo} />} />
       </Routes>
     </Router>
   );

@@ -35,7 +35,7 @@ const ContactSection = () => {
   };
 
   return (
-    <section style={{padding: '3rem 2rem', textAlign: 'center' }}>
+    <section id="contact" style={{padding: '3rem 2rem', textAlign: 'center' }}>
       <h2 style={{ fontSize: '2rem', marginBottom: '1rem', fontWeight: '700' }}>Stay in Touch</h2>
       <p style={{ color: '#ccc', marginBottom: '2rem', maxWidth: '700px', marginInline: 'auto' }}>
         Sign up for our newsletter to receive updates, tips, and best practices on collaboration.

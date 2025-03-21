@@ -83,16 +83,16 @@ const TimelineIcon = styled.div`
 const HowItWorks = () => {
   const steps = [
     {
-      id: 1,
-      icon: faUserPlus,
-      title: "Create Your Account",
-      description: "Sign up using your email or social login to begin your journey with CollabPulse."
-    },
-    {
       id: 2,
       icon: faCogs,
       title: "Customize Your Experience",
       description: "Complete a brief onboarding survey to tailor the platform to your team's needs."
+    },
+    {
+      id: 1,
+      icon: faUserPlus,
+      title: "Create Your Account",
+      description: "Sign up using your email or social login to begin your journey with CollabPulse."
     },
     {
       id: 3,
@@ -115,7 +115,7 @@ const HowItWorks = () => {
   ];
 
   return (
-    <TimelineSection>
+    <TimelineSection id="howitworks">
       <TimelineTitle>Getting Started with CollabPulse</TimelineTitle>
       <TimelineContainer>
         {steps.map((step, index) => {
