@@ -72,7 +72,7 @@ router.get('/google/callback', async (req, res) => {
     );
 
     // Redirect to your frontend using the FRONTEND_URL environment variable
-    const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+    const frontendUrl = process.env.FRONTEND_URL;
     res.redirect(`${frontendUrl}/dashboard?token=${appToken}`);
 
   } catch (error) {
