@@ -8,28 +8,115 @@ const Navbar = ({ userInfo }) => {
     window.location.href = '/';
   };
 
-  // For smooth scrolling, you can later add a scroll-behavior: smooth style to html in CSS.
+  const scrollToSection = (id) => {
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <nav className="navbar" style={{ padding: '1rem 2rem', backgroundColor: '#151515' }}>
       <div className="nav-left" style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
         CollabPulse
       </div>
+
       <ul className="nav-links" style={{ listStyle: 'none', display: 'flex', gap: '3rem', margin: 0 }}>
         {userInfo ? (
           <>
-            <li><a href="#dashboard" style={{ color: '#fff', textDecoration: 'none' }}>Dashboard</a></li>
-            <li><a href="/projects" style={{ color: '#fff', textDecoration: 'none' }}>Projects</a></li>
-            <li><a href="/activity" style={{ color: '#fff', textDecoration: 'none' }}>Activity Feed</a></li>
-            <li><a href="/settings" style={{ color: '#fff', textDecoration: 'none' }}>Settings</a></li>
-            <li><a href="/help" style={{ color: '#fff', textDecoration: 'none' }}>Help & Support</a></li>
+            <li>
+              <a
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection('dashboard');
+                }}
+                style={{ color: '#fff', textDecoration: 'none', cursor: 'pointer' }}
+              >
+                Dashboard
+              </a>
+            </li>
+            <li>
+              <a
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection('projects');
+                }}
+                style={{ color: '#fff', textDecoration: 'none', cursor: 'pointer' }}
+              >
+                Projects
+              </a>
+            </li>
+            <li>
+              <a
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection('activity');
+                }}
+                style={{ color: '#fff', textDecoration: 'none', cursor: 'pointer' }}
+              >
+                Activity Feed
+              </a>
+            </li>
+            <li><a href="#settings" style={{ color: '#fff', textDecoration: 'none' }}>Settings</a></li>
+            <li><a href="#help" style={{ color: '#fff', textDecoration: 'none' }}>Help & Support</a></li>
           </>
         ) : (
           <>
-            <li><a href="#hero" style={{ color: '#fff', textDecoration: 'none' }}>Home</a></li>
-            <li><a href="#insights" style={{ color: '#fff', textDecoration: 'none' }}>Insights</a></li>
-            <li><a href="#collaborate" style={{ color: '#fff', textDecoration: 'none' }}>Collaborate</a></li>
-            <li><a href="#howitworks" style={{ color: '#fff', textDecoration: 'none' }}>How It Works</a></li>
-            <li><a href="#contact" style={{ color: '#fff', textDecoration: 'none' }}>Contact</a></li>
+            <li>
+              <a
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection('hero');
+                }}
+                style={{ color: '#fff', textDecoration: 'none', cursor: 'pointer' }}
+              >
+                Home
+              </a>
+            </li>
+            <li>
+              <a
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection('insights');
+                }}
+                style={{ color: '#fff', textDecoration: 'none', cursor: 'pointer' }}
+              >
+                Insights
+              </a>
+            </li>
+            <li>
+              <a
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection('collaborate');
+                }}
+                style={{ color: '#fff', textDecoration: 'none', cursor: 'pointer' }}
+              >
+                Collaborate
+              </a>
+            </li>
+            <li>
+              <a
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection('howitworks');
+                }}
+                style={{ color: '#fff', textDecoration: 'none', cursor: 'pointer' }}
+              >
+                How It Works
+              </a>
+            </li>
+            <li>
+              <a
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection('contact');
+                }}
+                style={{ color: '#fff', textDecoration: 'none', cursor: 'pointer' }}
+              >
+                Contact
+              </a>
+            </li>
           </>
         )}
       </ul>

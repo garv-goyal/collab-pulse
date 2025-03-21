@@ -36,7 +36,6 @@ function App() {
     if (token) {
       localStorage.setItem('authToken', token);
       setAuthToken(token);
-      // In a real app, decode token or fetch user info from backend
       setUserInfo({ name: "Test User", email: "test@example.com" });
       window.history.replaceState({}, document.title, window.location.pathname);
     } else {

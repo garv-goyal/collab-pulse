@@ -3,7 +3,10 @@ import React, { useState } from 'react';
 import Navbar from './Navbar';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGithub, faSlack } from '@fortawesome/free-brands-svg-icons';
+import { faGithub, faSlack, faBitbucket } from '@fortawesome/free-brands-svg-icons';
+import { faStickyNote } from '@fortawesome/free-solid-svg-icons';
+import ProjectsSection from './ProjectsSection';
+import ActivityFeedSection from './ActivityFeed';
 
 const DashboardContainer = styled.div`
   background-color: #0f0f0f;
@@ -29,6 +32,7 @@ const ToolsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
+  margin-bottom: 3rem;
 `;
 
 const ToolCard = styled.div`
@@ -104,6 +108,8 @@ const CloseButton = styled.button`
 const Dashboard = ({ userInfo }) => {
   const [showGitHubModal, setShowGitHubModal] = useState(false);
   const [showSlackModal, setShowSlackModal] = useState(false);
+  const [showNotionModal, setShowNotionModal] = useState(false);
+  const [showBitbucketModal, setShowBitbucketModal] = useState(false);
 
   const handleGitHubConnect = () => {
     setShowGitHubModal(true);
@@ -113,12 +119,22 @@ const Dashboard = ({ userInfo }) => {
     setShowSlackModal(true);
   };
 
+  const handleNotionConnect = () => {
+    setShowNotionModal(true);
+  };
+
+  const handleBitbucketConnect = () => {
+    setShowBitbucketModal(true);
+  };
+
   return (
     <DashboardContainer>
       <Navbar userInfo={userInfo} />
       <ContentContainer>
         <Header>Dashboard</Header>
-        <SubHeader>Welcome, {userInfo ? userInfo.name : "User"}! Connect your tools below to start syncing your team's data.</SubHeader>
+        <SubHeader>
+          Welcome, {userInfo ? userInfo.name : "User"}! Connect your tools below to start syncing your team's data.
+        </SubHeader>
         <ToolsGrid>
           <ToolCard onClick={handleGitHubConnect}>
             <ToolIcon>
@@ -150,19 +166,48 @@ const Dashboard = ({ userInfo }) => {
               Connect Slack
             </ConnectButton>
           </ToolCard>
+          <ToolCard onClick={handleNotionConnect}>
+            <ToolIcon>
+              <FontAwesomeIcon icon={faStickyNote} />
+            </ToolIcon>
+            <h3>Connect Notion</h3>
+            <p>Integrate your Notion workspace to centralize documents, project boards, and notes.</p>
+            <ConnectButton
+              bgColor="#000000"
+              color="#fff"
+              hoverBgColor="#333"
+              onClick={handleNotionConnect}
+            >
+              Connect Notion
+            </ConnectButton>
+          </ToolCard>
+          <ToolCard onClick={handleBitbucketConnect}>
+            <ToolIcon>
+              <FontAwesomeIcon icon={faBitbucket} />
+            </ToolIcon>
+            <h3>Connect Bitbucket</h3>
+            <p>Sync your Bitbucket repositories to view commit history, branch activity, and pull request trends.</p>
+            <ConnectButton
+              bgColor="#205081"
+              color="#fff"
+              hoverBgColor="#18365e"
+              onClick={handleBitbucketConnect}
+            >
+              Connect Bitbucket
+            </ConnectButton>
+          </ToolCard>
         </ToolsGrid>
+        <ProjectsSection />
+        <ActivityFeedSection />
       </ContentContainer>
 
-      {/* GitHub Modal */}
       {showGitHubModal && (
         <ModalOverlay onClick={() => setShowGitHubModal(false)}>
           <ModalContent onClick={(e) => e.stopPropagation()}>
-            <CloseButton onClick={() => setShowGitHubModal(false)}>
-              &times;
-            </CloseButton>
+            <CloseButton onClick={() => setShowGitHubModal(false)}>&times;</CloseButton>
             <h2>Connect Your GitHub Account</h2>
             <p>
-              In the final product, you'll connect your GitHub account to sync repository data and view interactive graphs that simulate commit trends, pull request activity, and issue tracking. You can filter data by repository, time frame, and contributor.
+              Connect your GitHub account to sync repository data and view interactive graphs that simulate commit trends, pull request activity, and issue tracking. Filter data by repository, time frame, and contributor for deeper insights.
             </p>
             <img 
               src="https://via.placeholder.com/600x300?text=GitHub+Graph+Demo" 
@@ -185,16 +230,13 @@ const Dashboard = ({ userInfo }) => {
         </ModalOverlay>
       )}
 
-      {/* Slack Modal */}
       {showSlackModal && (
         <ModalOverlay onClick={() => setShowSlackModal(false)}>
           <ModalContent onClick={(e) => e.stopPropagation()}>
-            <CloseButton onClick={() => setShowSlackModal(false)}>
-              &times;
-            </CloseButton>
+            <CloseButton onClick={() => setShowSlackModal(false)}>&times;</CloseButton>
             <h2>Connect Your Slack Workspace</h2>
             <p>
-              In the final product, you'll connect your Slack workspace to sync communication data and analyze sentiment trends. The demo flow simulates integration by displaying interactive heatmaps and word clouds.
+              Connect your Slack workspace to sync communication data and analyze simulated sentiment trends. Interactive heatmaps and word clouds provide insight into team engagement.
             </p>
             <img 
               src="https://via.placeholder.com/600x300?text=Slack+Sentiment+Demo" 
@@ -212,6 +254,64 @@ const Dashboard = ({ userInfo }) => {
               style={{ marginTop: '1rem' }}
             >
               Connect Slack
+            </ConnectButton>
+          </ModalContent>
+        </ModalOverlay>
+      )}
+
+      {showNotionModal && (
+        <ModalOverlay onClick={() => setShowNotionModal(false)}>
+          <ModalContent onClick={(e) => e.stopPropagation()}>
+            <CloseButton onClick={() => setShowNotionModal(false)}>&times;</CloseButton>
+            <h2>Connect Your Notion Workspace</h2>
+            <p>
+              Connect your Notion workspace to centralize your documents, project boards, and notes. View an interactive demo dashboard that simulates integration with Notion.
+            </p>
+            <img 
+              src="https://via.placeholder.com/600x300?text=Notion+Dashboard+Demo" 
+              alt="Notion Dashboard Demo" 
+              style={{ width: '100%', borderRadius: '8px', marginTop: '1rem' }}
+            />
+            <ConnectButton
+              bgColor="#000000"
+              color="#fff"
+              hoverBgColor="#333"
+              onClick={() => {
+                alert("Notion connected (demo)!");
+                setShowNotionModal(false);
+              }}
+              style={{ marginTop: '1rem' }}
+            >
+              Connect Notion
+            </ConnectButton>
+          </ModalContent>
+        </ModalOverlay>
+      )}
+
+      {showBitbucketModal && (
+        <ModalOverlay onClick={() => setShowBitbucketModal(false)}>
+          <ModalContent onClick={(e) => e.stopPropagation()}>
+            <CloseButton onClick={() => setShowBitbucketModal(false)}>&times;</CloseButton>
+            <h2>Connect Your Bitbucket Account</h2>
+            <p>
+              Connect your Bitbucket account to sync repository data and view interactive graphs that simulate commit history, branch activity, and pull request trends.
+            </p>
+            <img 
+              src="https://via.placeholder.com/600x300?text=Bitbucket+Dashboard+Demo" 
+              alt="Bitbucket Dashboard Demo" 
+              style={{ width: '100%', borderRadius: '8px', marginTop: '1rem' }}
+            />
+            <ConnectButton
+              bgColor="#205081"
+              color="#fff"
+              hoverBgColor="#18365e"
+              onClick={() => {
+                alert("Bitbucket connected (demo)!");
+                setShowBitbucketModal(false);
+              }}
+              style={{ marginTop: '1rem' }}
+            >
+              Connect Bitbucket
             </ConnectButton>
           </ModalContent>
         </ModalOverlay>
