@@ -1,3 +1,4 @@
+// src/App.jsx
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
@@ -8,9 +9,11 @@ import HowitWorks from './components/HowItWorks';
 import ContactSection from './components/ContactSection';
 import ScrollToTop from './components/ScrollToTop';
 import Footer from './components/Footer';
+import SurveyPage from './components/SurveyPage';
 
 const MainPage = () => (
   <>
+    <Navbar />
     <Hero />
     <InsightsSection />
     <CollaborateSection />
@@ -31,7 +34,6 @@ function App() {
     if (token) {
       localStorage.setItem('authToken', token);
       setAuthToken(token);
-
       window.history.replaceState({}, document.title, window.location.pathname);
     } else {
       const savedToken = localStorage.getItem('authToken');
@@ -44,15 +46,8 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <Navbar />
-                <MainPage />
-            </>
-          }
-        />
+        <Route path="/" element={<MainPage />} />
+        <Route path="/survey" element={<SurveyPage />} />
       </Routes>
     </Router>
   );
