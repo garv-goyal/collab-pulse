@@ -1,0 +1,5 @@
+branch-defaults:
+  master:
+    environment: collabpulse-server-ev
+global:
+  profile: null

@@ -1,4 +1,3 @@
-// src/components/Dashboard.jsx
 import React, { useState } from 'react';
 import Navbar from './Navbar';
 import styled from 'styled-components';
@@ -62,6 +61,7 @@ const ConnectButton = styled.button`
   color: ${(props) => props.color || '#0f0f0f'};
   font-size: 1rem;
   font-weight: 600;
+  font-family: 'Kanit', sans-serif;
   cursor: pointer;
   transition: background-color 0.3s ease;
   &:hover {
@@ -69,7 +69,6 @@ const ConnectButton = styled.button`
   }
 `;
 
-// Modal styles
 const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
