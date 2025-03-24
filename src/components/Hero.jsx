@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
+import githubLogo from '../assets/Github-desktop-logo-symbol.svg.png';
+import slackLogo from '../assets/306_Slack_logo-512.png';
+import jiraLogo from '../assets/jira.svg';
+import trelloLogo from '../assets/trello.png';
 
 const slideOut = keyframes`
   0% { opacity: 1; transform: translateX(0) scale(1); }
@@ -191,16 +195,16 @@ const Hero = () => {
       <LiveBadge>Live Analytics</LiveBadge>
       <IntegrationIcons>
       <a href="https://github.com" target="_blank" rel="noopener noreferrer">
-  <img src="../src/assets/Github-desktop-logo-symbol.svg.png" alt="GitHub" />
+      <img src={githubLogo} alt="GitHub" />
   </a>
   <a href="https://slack.com" target="_blank" rel="noopener noreferrer">
-  <img src="../src/assets/306_Slack_logo-512.png" alt="Slack" />
+  <img src={slackLogo} alt="Slack" />
   </a>
   <a href="https://www.atlassian.com/software/jira" target="_blank" rel="noopener noreferrer">
-  <img src="../src/assets/jira.svg" alt="Jira" />
+  <img src={jiraLogo} alt="Jira" />
   </a>
   <a href="https://trello.com" target="_blank" rel="noopener noreferrer">
-  <img src="../src/assets/trello.png" alt="Trello" />
+  <img src={trelloLogo} alt="Trello" />
   </a>
 </IntegrationIcons>
         <HeroSubtitle className="hero-subtitle">
