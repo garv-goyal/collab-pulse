@@ -118,6 +118,13 @@ html {
   overflow: hidden; 
 }
 
+.hero h1 {
+  font-size: 3.2rem;
+}
+
+.hero p {
+  font-size: 1.3rem;
+}
 
 .hero-content {
   max-width: 750px;
