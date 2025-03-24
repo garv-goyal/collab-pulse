@@ -3,13 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 
 const slideOut = keyframes`
-  0% { opacity: 1; transform: translateX(0); }
-  100% { opacity: 0; transform: translateX(100%); }
+  0% { opacity: 1; transform: translateX(0) scale(1); }
+  100% { opacity: 0; transform: translateX(60%) scale(0.95); }
 `;
 
 const slideIn = keyframes`
-  0% { opacity: 0; transform: translateX(-100%); }
-  100% { opacity: 1; transform: translateX(0); }
+  0% { opacity: 0; transform: translateX(-60%) scale(0.95); }
+  100% { opacity: 1; transform: translateX(0) scale(1); }
 `;
 
 const HeroSection = styled.section`
@@ -24,6 +24,7 @@ const HeroSection = styled.section`
   text-align: center;
 `;
 
+
 const HeroContent = styled.div`
   position: relative;
   z-index: 3;
@@ -35,7 +36,12 @@ const AnimatedText = styled.h1`
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  animation: ${(props) => (props.animating ? slideOut : slideIn)} 1s ease forwards;
+  animation: ${(props) => (props.animating ? slideOut : slideIn)} 0.9s ease-in-out forwards;
+  transition: transform 0.3s ease;
+  background: linear-gradient(90deg, #ffffff, #aaaaaa);
+  background-clip: text;
+  -webkit-background-clip: text;
+  rgb(250, 250, 250)
 `;
 
 const HeroSubtitle = styled.p`
@@ -69,6 +75,62 @@ const phrases = [
   "Revolutionize Your Workflow with Real-Time Analytics"
 ];
 
+const AnimatedTextWrapper = styled.div`
+  overflow: hidden;
+  display: inline-block;
+`;
+
+const AnimatedUnderline = styled.div`
+  width: 0%;
+  height: 4px;
+  margin: 0.5rem auto 1.5rem;
+  background-color: #ffffffcc;
+  border-radius: 2px;
+  animation: ${(props) => (props.animating ? underlineOut : underlineIn)} 1s ease forwards;
+`;
+
+const underlineIn = keyframes`
+  0% { width: 0%; opacity: 0; }
+  100% { width: 80%; opacity: 1; }
+`;
+
+const underlineOut = keyframes`
+  0% { width: 80%; opacity: 1; }
+  100% { width: 0%; opacity: 0; }
+`;
+
+const LiveBadge = styled.div`
+  display: inline-flex;
+  align-items: center;
+  background-color: #00ffab1a;
+  color: #00ffab;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+
+  &::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background-color: #00ffab;
+    border-radius: 50%;
+    animation: pulse 1.4s infinite;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.5); opacity: 0.5; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+`;
+
+
 const Hero = () => {
   const navigate = useNavigate();
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -93,9 +155,13 @@ const Hero = () => {
   return (
     <HeroSection className="hero">
       <HeroContent className="hero-content">
+      <AnimatedTextWrapper>
         <AnimatedText className="hero-title" animating={animating}>
           {phrases[currentIndex]}
         </AnimatedText>
+        <AnimatedUnderline animating={animating} />
+      </AnimatedTextWrapper>
+      <LiveBadge>Live Analytics</LiveBadge>
         <HeroSubtitle className="hero-subtitle">
           Stay ahead in fast-paced projects with real-time collaboration insights.
           CollabPulse seamlessly integrates with GitHub, Slack, and project management tools

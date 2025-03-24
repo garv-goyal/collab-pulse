@@ -1,4 +1,82 @@
 import React, { useState } from 'react';
+import styled, { keyframes } from 'styled-components';
+
+const fadeInUp = keyframes`
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+`;
+
+const ContactContainer = styled.section`
+  padding: 4rem 2rem;
+  text-align: center;
+  color: #fff;
+  backdrop-filter: blur(10px);
+  animation: ${fadeInUp} 1s ease both;
+`;
+
+const ContactTitle = styled.h2`
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(to right, #ffffff, #cccccc);
+  -webkit-background-clip: text;
+  color:rgb(250, 250, 250);
+`;
+
+const ContactSubtitle = styled.p`
+  color: #ccc;
+  margin-bottom: 2rem;
+  max-width: 700px;
+  margin-inline: auto;
+  font-size: 1.1rem;
+`;
+
+const Form = styled.form`
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  max-width: 400px;
+  margin: 0 auto;
+`;
+
+const EmailInput = styled.input`
+  flex: 1;
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+  border: 1px solid #333;
+  font-family: 'Kanit', sans-serif;
+  background-color: rgba(15, 35, 45, 0.8);
+  color: #fff;
+  transition: border 0.3s ease;
+
+  &:focus {
+    outline: none;
+    border: 1px solid #f6f6bd;
+    box-shadow: 0 0 8px rgba(0, 255, 171, 0.3);
+  }
+`;
+
+const SubscribeButton = styled.button`
+  padding: 0.8rem 1.5rem;
+  background-color: #fbfbfa;
+  color: #0f0f0f;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-family: 'Kanit', sans-serif;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background-color:rgb(231, 231, 231);
+  }
+`;
+
+const ResponseMessage = styled.p`
+  color: lightgreen;
+  margin-top: 1rem;
+  font-size: 1rem;
+`;
 
 const ContactSection = () => {
   const [email, setEmail] = useState('');
@@ -17,12 +95,12 @@ const ContactSection = () => {
       if (response.ok) {
         setMessage('Successfully subscribed! 🎉 Check your email for confirmation.');
         setEmail('');
-        
+
         if (window.gtag) {
           window.gtag('event', 'submit', {
-            'event_category': 'Newsletter',
-            'event_label': 'Contact Form',
-            'value': 1
+            event_category: 'Newsletter',
+            event_label: 'Contact Form',
+            value: 1
           });
         }
       } else {
@@ -35,46 +113,23 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" style={{padding: '3rem 2rem', textAlign: 'center' }}>
-      <h2 style={{ fontSize: '2rem', marginBottom: '1rem', fontWeight: '700' }}>Stay in Touch</h2>
-      <p style={{ color: '#ccc', marginBottom: '2rem', maxWidth: '700px', marginInline: 'auto' }}>
+    <ContactContainer id="contact">
+      <ContactTitle>Stay in Touch</ContactTitle>
+      <ContactSubtitle>
         Sign up for our newsletter to receive updates, tips, and best practices on collaboration.
-      </p>
-
-      <form onSubmit={handleSubmit} style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem' }}>
-        <input
+      </ContactSubtitle>
+      <Form onSubmit={handleSubmit}>
+        <EmailInput
           type="email"
           required
           placeholder="Enter your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          style={{
-            padding: '0.8rem',
-            borderRadius: '4px',
-            border: '1px solid #333',
-            fontFamily: "'Kanit', sans-serif",
-            backgroundColor: '#0f0f0f',
-            color: '#fff'
-          }}
         />
-        <button
-          type="submit"
-          style={{
-            padding: '0.8rem 1.5rem',
-            backgroundColor: '#fff',
-            color: '#0f0f0f',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-            fontWeight: '600'
-          }}
-        >
-          Subscribe
-        </button>
-      </form>
-
-      {message && <p style={{ color: 'lightgreen', marginTop: '1rem' }}>{message}</p>}
-    </section>
+        <SubscribeButton type="submit">Subscribe</SubscribeButton>
+      </Form>
+      {message && <ResponseMessage>{message}</ResponseMessage>}
+    </ContactContainer>
   );
 };
 

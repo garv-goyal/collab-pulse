@@ -10,11 +10,18 @@ html, body {
   background-color: #0f0f0f; 
 }
 
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
 body {
   font-family: 'Kanit', sans-serif;
-  background: linear-gradient(135deg, #0d0d0d 20%, #202025 40%, #1f1f1f 60%, #252525 80%, #0d0d0d),
+  /* background: linear-gradient(135deg, #0d0d0d 20%, #202025 40%, #1f1f1f 60%, #252525 80%, #0d0d0d),
             radial-gradient(circle at 30% 30%, rgba(13, 14, 14, 0.755), transparent 50%),
             radial-gradient(circle at 70% 70%, rgb(0, 0, 0), transparent 50%);
+             */
+  background: linear-gradient(135deg, #1e3d4b, #284954, #294b5b); 
   background-blend-mode: overlay, multiply, normal;
   background-size: cover;
   color: #fff;
@@ -224,13 +231,18 @@ html {
 }
 
 .feature-card {
-  background-color: #1e1e1e;
+  background-color: #3e6691;
   padding: 2rem;
   border-radius: 8px;
   text-align: left;
   transition: transform 0.3s;
   position: relative; 
 }
+
+.feature-card:hover .fa-chevron-down {
+  color: #00ffab;
+}
+
 
 .feature-card:hover {
   transform: translateY(-2px);
@@ -293,7 +305,7 @@ html {
   text-align: center;
   padding: 2rem;
   font-size: 0.9rem;
-  color: #999;
+  color: rgb(240, 240, 240);
 }
 
 

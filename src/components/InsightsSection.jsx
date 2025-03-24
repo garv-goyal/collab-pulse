@@ -1,31 +1,61 @@
 import React from 'react';
 import { faChartLine, faArrowTrendUp, faBell } from '@fortawesome/free-solid-svg-icons';
 import FeatureCard from './FeatureCard';
+import styled, { keyframes } from 'styled-components';
+
+const fadeInUp = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+const InsightsContainer = styled.section`
+  padding: 4rem 2rem;
+  color: #fff;
+  text-align: center;
+  animation: ${fadeInUp} 0.8s ease both;
+`;
+
+const InsightsTitle = styled.h2`
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(to right, #ffffff, #cccccc);
+  -webkit-background-clip: text;
+  rgb(250, 250, 250)
+`;
+
+const InsightsSubtitle = styled.p`
+  max-width: 700px;
+  margin: 0 auto 2.5rem auto;
+  font-size: 1.1rem;
+  color: #ccc;
+  line-height: 1.6;
+`;
+
+const FeaturesGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+`;
 
 const InsightsSection = () => {
   return (
-    <section 
-      className="insights-section" 
-      id="insights" 
-      style={{ padding: '3rem 2rem', color: '#fff' }}
-    >
-      <h2 
-        className="insights-title" 
-        style={{ textAlign: 'center', fontSize: '2rem', marginBottom: '1.5rem' }}
-      >
+    <InsightsContainer id="insights">
+      <InsightsTitle>
         Insights When You Need Them, Wherever You Are
-      </h2>
-      <p 
-        className="insights-subtitle" 
-        style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto 2rem', color: '#ccc' }}
-      >
+      </InsightsTitle>
+      <InsightsSubtitle>
         Access real-time analytics and performance metrics with our dynamic dashboard. 
         Stay informed and make data-driven decisions from any location.
-      </p>
-      <div 
-        className="features-grid" 
-        style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem' }}
-      >
+      </InsightsSubtitle>
+      <FeaturesGrid>
         <FeatureCard
           icon={faChartLine}
           title="Activity Analysis"
@@ -44,8 +74,8 @@ const InsightsSection = () => {
           description="Receive collaboration alerts."
           detailedDescription="Stay on top of your team's performance with timely notifications. Detailed alert logs help you monitor issues and take corrective actions promptly."
         />
-      </div>
-    </section>
+      </FeaturesGrid>
+    </InsightsContainer>
   );
 };
 

@@ -16,7 +16,7 @@ const Navbar = ({ userInfo }) => {
   };
 
   return (
-    <nav className="navbar" style={{ padding: '1rem 2rem', backgroundColor: '#151515' }}>
+    <nav className="navbar" style={{ padding: '1rem 2rem', backgroundColor: '#2a4a55' }}>
       <div className="nav-left" style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
         CollabPulse
       </div>
