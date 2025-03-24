@@ -33,7 +33,7 @@ const InsightsSubtitle = styled.p`
   max-width: 700px;
   margin: 0 auto 2.5rem auto;
   font-size: 1.1rem;
-  color: #ccc;
+  color: #ddd;
   line-height: 1.6;
 `;
 

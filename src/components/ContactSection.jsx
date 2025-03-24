@@ -23,7 +23,7 @@ const ContactTitle = styled.h2`
 `;
 
 const ContactSubtitle = styled.p`
-  color: #ccc;
+  color: #ddd;
   margin-bottom: 2rem;
   max-width: 700px;
   margin-inline: auto;

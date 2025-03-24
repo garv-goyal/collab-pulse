@@ -41,12 +41,12 @@ const AnimatedText = styled.h1`
   background: linear-gradient(90deg, #ffffff, #aaaaaa);
   background-clip: text;
   -webkit-background-clip: text;
-  rgb(250, 250, 250)
+  color: rgb(250, 250, 250);
 `;
 
 const HeroSubtitle = styled.p`
   font-size: 1.2rem;
-  color: #ccc;
+  color: #ddd;
   line-height: 1.6;
   max-width: 700px;
   margin: 0 auto 2rem;
@@ -130,6 +130,33 @@ const LiveBadge = styled.div`
   }
 `;
 
+const IntegrationIcons = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 1rem 0 2rem;
+  opacity: 0.9;
+
+  a {
+    display: inline-block;
+    transition: transform 0.2s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    img {
+      height: 32px;
+      width: auto;
+      filter: grayscale(1) brightness(1.2);
+      transition: filter 0.3s;
+
+      &:hover {
+        filter: none;
+      }
+    }
+  }
+`;
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -162,9 +189,23 @@ const Hero = () => {
         <AnimatedUnderline animating={animating} />
       </AnimatedTextWrapper>
       <LiveBadge>Live Analytics</LiveBadge>
+      <IntegrationIcons>
+      <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+  <img src="../src/assets/Github-desktop-logo-symbol.svg.png" alt="GitHub" />
+  </a>
+  <a href="https://slack.com" target="_blank" rel="noopener noreferrer">
+  <img src="../src/assets/306_Slack_logo-512.png" alt="Slack" />
+  </a>
+  <a href="https://www.atlassian.com/software/jira" target="_blank" rel="noopener noreferrer">
+  <img src="../src/assets/jira.svg" alt="Jira" />
+  </a>
+  <a href="https://trello.com" target="_blank" rel="noopener noreferrer">
+  <img src="../src/assets/trello.png" alt="Trello" />
+  </a>
+</IntegrationIcons>
         <HeroSubtitle className="hero-subtitle">
           Stay ahead in fast-paced projects with real-time collaboration insights.
-          CollabPulse seamlessly integrates with GitHub, Slack, and project management tools
+          CollabPulse seamlessly integrates project management tools like GitHub, Slack, Jira, and Trello 
           to track activity, analyze communication, and boost teamwork.
         </HeroSubtitle>
         <HeroButton className="hero-button" onClick={handleGetStarted}>

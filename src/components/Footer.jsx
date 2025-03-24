@@ -3,7 +3,7 @@ import React from 'react';
 const Footer = () => {
   return (
     <footer className="footer">
-      <p>© {new Date().getFullYear()} CollabPulse. All rights reserved.</p>
+      <p>CollabPulse © {new Date().getFullYear()}</p>
     </footer>
   );
 };

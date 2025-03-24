@@ -21,7 +21,7 @@ body {
             radial-gradient(circle at 30% 30%, rgba(13, 14, 14, 0.755), transparent 50%),
             radial-gradient(circle at 70% 70%, rgb(0, 0, 0), transparent 50%);
              */
-  background: linear-gradient(135deg, #1e3d4b, #284954, #294b5b); 
+  background: linear-gradient(135deg, #1b4457, #284954, #294b5b); 
   background-blend-mode: overlay, multiply, normal;
   background-size: cover;
   color: #fff;

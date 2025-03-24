@@ -23,7 +23,7 @@ const FeatureCard = ({ icon, title, description, detailedDescription }) => {
         transition: 'all 0.3s ease',
         padding: '2rem',
         boxShadow: isExpanded
-          ? '0 0 25px rgba(0,255,171,0.12)'
+          ? '0 0 10px rgba(0,255,171,0.12)'
           : '0 0 8px rgba(0, 0, 0, 0.3)',
         position: 'relative',
         color: '#fdfdfd'

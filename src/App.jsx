@@ -11,6 +11,7 @@ import SurveyPage from './components/SurveyPage';
 import Dashboard from './components/Dashboard';
 import ScrollToTop from './components/ScrollToTop';
 import Footer from './components/Footer';
+import LivePulseSection from './components/LivePulseSection';
 
 const MainPage = () => (
   <>
@@ -18,6 +19,7 @@ const MainPage = () => (
     <Hero />
     <InsightsSection />
     <CollaborateSection />
+    <LivePulseSection />
     <HowitWorks />
     <ContactSection />
     <ScrollToTop />

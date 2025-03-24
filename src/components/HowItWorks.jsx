@@ -9,183 +9,133 @@ import {
   faRocket
 } from '@fortawesome/free-solid-svg-icons';
 
-const fadeInUp = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+const fadeIn = keyframes`
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
 `;
 
-const pulseGlow = keyframes`
-  0% {
-    box-shadow: 0 0 0 rgba(0, 255, 171, 0);
-  }
-  50% {
-    box-shadow: 0 0 15px rgba(0, 255, 171, 0.3);
-  }
-  100% {
-    box-shadow: 0 0 0 rgba(0, 255, 171, 0);
-  }
+const pulse = keyframes`
+  0% { box-shadow: 0 0 0 rgba(74, 241, 192, 0); }
+  50% { box-shadow: 0 0 16px rgba(74, 241, 192, 0.2); }
+  100% { box-shadow: 0 0 0 rgba(74, 241, 192, 0); }
 `;
 
-const TimelineSection = styled.section`
+const Section = styled.section`
   padding: 4rem 2rem;
-  backdrop-filter: blur(8px);
+  color: #fff;
 `;
 
-const TimelineTitle = styled.h2`
-  font-size: 2.5rem;
+const Title = styled.h2`
+  font-size: 2.7rem;
   text-align: center;
-  color: #fff;
-  margin-bottom: 3rem;
-  background: linear-gradient(to right, #ffffff, #aaaaaa);
+  margin-bottom: 4rem;
+  background: linear-gradient(90deg, #ffffff, #bbbbbb);
   -webkit-background-clip: text;
-  color: rgb(250, 250, 250);
-`;
-
-const TimelineContainer = styled.div`
-  position: relative;
-  max-width: 1000px;
-  margin: auto;
-  animation: ${fadeInUp} 1s ease-in-out;
-
-  &::after {
-    content: '';
-    position: absolute;
-    width: 4px;
-    background: linear-gradient(to bottom, #00ffab, #00d6d6);
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    margin-left: -2px;
-    z-index: 0;
-  }
-`;
-
-const TimelineItem = styled.div`
-  position: relative;
-  width: 50%;
-  padding: 1.5rem 2rem;
-  box-sizing: border-box;
-  text-align: ${(props) => (props.align === 'left' ? 'right' : 'left')};
-  left: ${(props) => (props.align === 'left' ? '0' : '50%')};
-  z-index: 1;
-
-  @media (max-width: 768px) {
-    width: 100%;
-    left: 0;
-    text-align: left;
-    padding-left: 60px;
-    margin-bottom: 2rem;
-  }
-`;
-
-const TimelineContent = styled.div`
-  padding: 1.2rem 1.5rem;
-  background: ${(props) =>
-    props.align === 'left'
-      ? 'rgba(0, 255, 171, 0.06)'
-      : 'rgba(0, 214, 255, 0.06)'};
-  border-left: ${(props) =>
-    props.align === 'left' ? '4px solid #00ffab' : '4px solid #00d6d6'};
-  border-radius: 8px;
-  color: #fefefe;
-  transition: background 0.3s;
-  box-shadow: 0 0 12px rgba(0, 255, 171, 0.03);
-`;
-
-const TimelineIcon = styled.div`
-  position: absolute;
-  top: 20px;
-  ${(props) => (props.align === 'left' ? 'right: -35px;' : 'left: -35px;')}
-  background: #101f29;
   color: #fff;
+`;
+
+const StepGrid = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+`;
+
+const StepCard = styled.div`
+  background: rgba(255, 255, 255, 0.035);
+  border-radius: 16px;
+  padding: 2rem 1.8rem;
+  max-width: 220px;
+  max-height: 300px;
+  flex: 1 1 250px;
+  text-align: center;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(12px);
+  animation: ${fadeIn} 0.9s ease forwards;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-6px);
+    background: rgba(255, 255, 255, 0.05);
+  }
+`;
+
+const IconCircle = styled.div`
   width: 60px;
   height: 60px;
+  margin: 0 auto 1rem;
   border-radius: 50%;
+  background: #0e1a22;
+  border: 3px solid #52d1ab;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.8rem;
-  border: 3px solid #00ffab;
-  animation: ${pulseGlow} 3s infinite;
+  animation: ${pulse} 3s infinite;
+  color: #4af1c0;
 
-  &:hover {
-    background: #00ffab;
-    color: #0f0f0f;
-    transform: scale(1.05);
-    transition: all 0.3s ease;
+  ${StepCard}:hover & {
+    background: #52d1ab;
+    color: #0e1a22;
   }
+`;
 
-  @media (max-width: 768px) {
-    left: 10px !important;
-    right: auto !important;
-  }
+const StepTitle = styled.h3`
+  font-size: 1.3rem;
+  margin-bottom: 0.6rem;
+  color: #ffffff;
+`;
+
+const StepDesc = styled.p`
+  font-size: 1rem;
+  color: #dddddd;
+  line-height: 1.5;
 `;
 
 const HowItWorks = () => {
   const steps = [
     {
-      id: 2,
-      icon: faCogs,
-      title: 'Customize Your Experience',
-      description:
-        "Complete a brief onboarding survey to tailor the platform to your team's needs."
-    },
-    {
-      id: 1,
       icon: faUserPlus,
       title: 'Create Your Account',
-      description:
-        'Sign up using your email or social login to begin your journey with CollabPulse.'
+      description: 'Sign up with email or SSO to begin your journey with CollabPulse.'
     },
     {
-      id: 3,
+      icon: faCogs,
+      title: 'Customize Your Experience',
+      description: 'Complete a brief onboarding to tailor analytics to your team.'
+    },
+    {
       icon: faPlug,
       title: 'Connect Your Tools',
-      description:
-        "Integrate GitHub, Slack, and other apps to seamlessly sync your team's data."
+      description: 'Integrate GitHub, Slack, Jira and more to sync your workflows.'
     },
     {
-      id: 4,
       icon: faEye,
-      title: 'Explore Your Dashboard',
-      description:
-        'Dive into your personalized dashboard to view real-time analytics and performance metrics.'
+      title: 'View Your Dashboard',
+      description: 'Monitor real-time insights and detect collaboration bottlenecks.'
     },
     {
-      id: 5,
       icon: faRocket,
       title: 'Launch & Optimize',
-      description:
-        'Receive actionable insights and recommendations to boost collaboration and productivity.'
+      description: 'Get proactive recommendations to supercharge productivity.'
     }
   ];
 
   return (
-    <TimelineSection id="howitworks">
-      <TimelineTitle>Getting Started with CollabPulse</TimelineTitle>
-      <TimelineContainer>
-        {steps.map((step, index) => {
-          const align = index % 2 === 0 ? 'left' : 'right';
-          return (
-            <TimelineItem key={step.id} align={align}>
-              <TimelineIcon align={align}>
-                <FontAwesomeIcon icon={step.icon} />
-              </TimelineIcon>
-              <TimelineContent align={align}>
-                <h3 style={{ margin: '0 0 0.5rem', fontSize: '1.3rem' }}>{step.title}</h3>
-                <p style={{ margin: 0, fontSize: '1rem', color: '#ccc' }}>{step.description}</p>
-              </TimelineContent>
-            </TimelineItem>
-          );
-        })}
-      </TimelineContainer>
-    </TimelineSection>
+    <Section id="howitworks">
+      <Title>How CollabPulse Works</Title>
+      <StepGrid>
+        {steps.map((step, i) => (
+          <StepCard key={i} style={{ animationDelay: `${i * 0.15}s` }}>
+            <IconCircle>
+              <FontAwesomeIcon icon={step.icon} />
+            </IconCircle>
+            <StepTitle>{step.title}</StepTitle>
+            <StepDesc>{step.description}</StepDesc>
+          </StepCard>
+        ))}
+      </StepGrid>
+    </Section>
   );
 };
 
