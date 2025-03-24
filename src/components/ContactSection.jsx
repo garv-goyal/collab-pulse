@@ -19,7 +19,7 @@ const ContactTitle = styled.h2`
   margin-bottom: 1rem;
   background: linear-gradient(to right, #ffffff, #cccccc);
   -webkit-background-clip: text;
-  color:rgb(250, 250, 250);
+  color: rgb(250, 250, 250);
 `;
 
 const ContactSubtitle = styled.p`
@@ -35,7 +35,7 @@ const Form = styled.form`
   justify-content: center;
   gap: 0.8rem;
   flex-wrap: wrap;
-  max-width: 400px;
+  max-width: 600px;
   margin: 0 auto;
 `;
 
@@ -51,14 +51,14 @@ const EmailInput = styled.input`
 
   &:focus {
     outline: none;
-    border: 1px solid #f6f6bd;
+    border: 1px solid #00ffab;
     box-shadow: 0 0 8px rgba(0, 255, 171, 0.3);
   }
 `;
 
 const SubscribeButton = styled.button`
   padding: 0.8rem 1.5rem;
-  background-color: #fbfbfa;
+  background-color: #00ffab;
   color: #0f0f0f;
   border: none;
   border-radius: 6px;
@@ -68,7 +68,7 @@ const SubscribeButton = styled.button`
   transition: background 0.3s ease;
 
   &:hover {
-    background-color:rgb(231, 231, 231);
+    background-color: #00e0a0;
   }
 `;
 

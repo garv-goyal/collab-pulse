@@ -44,7 +44,7 @@ const TimelineTitle = styled.h2`
   margin-bottom: 3rem;
   background: linear-gradient(to right, #ffffff, #aaaaaa);
   -webkit-background-clip: text;
-  rgb(250, 250, 250)
+  color: rgb(250, 250, 250);
 `;
 
 const TimelineContainer = styled.div`
@@ -57,7 +57,7 @@ const TimelineContainer = styled.div`
     content: '';
     position: absolute;
     width: 4px;
-    background: linear-gradient(to bottom, #ffffab, #f5f5bb);
+    background: linear-gradient(to bottom, #00ffab, #00d6d6);
     top: 0;
     bottom: 0;
     left: 50%;
@@ -91,7 +91,7 @@ const TimelineContent = styled.div`
       ? 'rgba(0, 255, 171, 0.06)'
       : 'rgba(0, 214, 255, 0.06)'};
   border-left: ${(props) =>
-    props.align === 'left' ? '4px solid #ffffab' : '4px solid #ffffab'};
+    props.align === 'left' ? '4px solid #00ffab' : '4px solid #00d6d6'};
   border-radius: 8px;
   color: #fefefe;
   transition: background 0.3s;
@@ -111,11 +111,11 @@ const TimelineIcon = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 1.8rem;
-  border: 3px solid #f6f6bd;
+  border: 3px solid #00ffab;
   animation: ${pulseGlow} 3s infinite;
 
   &:hover {
-    background: #f6f6bd;
+    background: #00ffab;
     color: #0f0f0f;
     transform: scale(1.05);
     transition: all 0.3s ease;
