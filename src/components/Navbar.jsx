@@ -21,7 +21,7 @@ const Navbar = ({ userInfo }) => {
         CollabPulse
       </div>
 
-      <ul className="nav-links" style={{ listStyle: 'none', display: 'flex', gap: '3rem', margin: 0 }}>
+      <ul className="nav-links" style={{ listStyle: 'none', display: 'flex', gap: '3rem',  fontSize: '1.1rem', margin: 0 }}>
         {userInfo ? (
           <>
             <li>
@@ -93,6 +93,17 @@ const Navbar = ({ userInfo }) => {
                 style={{ color: '#fff', textDecoration: 'none', cursor: 'pointer' }}
               >
                 Collaborate
+              </a>
+            </li>
+            <li>
+              <a
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection('live');
+                }}
+                style={{ color: '#fff', textDecoration: 'none', cursor: 'pointer' }}
+              >
+                Live
               </a>
             </li>
             <li>

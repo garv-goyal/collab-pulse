@@ -1,81 +1,77 @@
 import React, { useState } from 'react';
-import styled, { keyframes } from 'styled-components';
-
-const fadeInUp = keyframes`
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-`;
+import styled from 'styled-components';
 
 const ContactContainer = styled.section`
   padding: 4rem 2rem;
   text-align: center;
   color: #fff;
-  backdrop-filter: blur(10px);
-  animation: ${fadeInUp} 1s ease both;
+`;
+
+const Card = styled.div`
+  border: 1px solid #1d2e3a;
+  border-radius: 12px;
+  padding: 2.5rem;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: 0 0 20px rgba(0, 255, 171, 0.05);
 `;
 
 const ContactTitle = styled.h2`
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  background: linear-gradient(to right, #ffffff, #cccccc);
+  font-size: 2.2rem;
+  margin-bottom: 0.75rem;
+  background: linear-gradient(to right, #ffffff, #bbbbbb);
   -webkit-background-clip: text;
-  color: rgb(250, 250, 250);
+  color: transparent;
 `;
 
 const ContactSubtitle = styled.p`
-  color: #ddd;
+  color: #ccc;
   margin-bottom: 2rem;
-  max-width: 700px;
-  margin-inline: auto;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
 `;
 
 const Form = styled.form`
   display: flex;
-  justify-content: center;
-  gap: 0.8rem;
-  flex-wrap: wrap;
-  max-width: 600px;
-  margin: 0 auto;
+  flex-direction: column;
+  gap: 1rem;
 `;
 
 const EmailInput = styled.input`
-  flex: 1;
-  padding: 0.8rem 1rem;
-  border-radius: 6px;
-  border: 1px solid #333;
-  font-family: 'Kanit', sans-serif;
-  background-color: rgba(15, 35, 45, 0.8);
+  padding: 0.9rem 1.2rem;
+  border-radius: 8px;
+  border: none;
+  background-color: #0d1a22;
   color: #fff;
-  transition: border 0.3s ease;
+  font-size: 1rem;
+  font-family: 'Kanit', sans-serif;
 
   &:focus {
-    outline: none;
-    border: 1px solid #00ffab;
-    box-shadow: 0 0 8px rgba(0, 255, 171, 0.3);
+    outline: 1px solid #00ffab;
+    background-color: #0a1720;
   }
 `;
 
-const SubscribeButton = styled.button`
-  padding: 0.8rem 1.5rem;
+const Button = styled.button`
   background-color: #00ffab;
   color: #0f0f0f;
+  padding: 0.9rem 1.2rem;
+  font-size: 1rem;
   border: none;
-  border-radius: 6px;
-  cursor: pointer;
+  border-radius: 8px;
   font-weight: 600;
+  cursor: pointer;
   font-family: 'Kanit', sans-serif;
-  transition: background 0.3s ease;
 
   &:hover {
-    background-color: #00e0a0;
+    background-color: #00e6a0;
   }
 `;
 
-const ResponseMessage = styled.p`
-  color: lightgreen;
+
+const Message = styled.p`
   margin-top: 1rem;
-  font-size: 1rem;
+  font-size: 0.95rem;
+  color: #00ffab;
 `;
 
 const ContactSection = () => {
@@ -84,51 +80,45 @@ const ContactSection = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage('');
 
     try {
-      const response = await fetch('https://formspree.io/f/xnnpnako', {
+      const res = await fetch('https://formspree.io/f/xnnpnako', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
       });
 
-      if (response.ok) {
-        setMessage('Successfully subscribed! 🎉 Check your email for confirmation.');
+      if (res.ok) {
+        setMessage('Thanks for subscribing! 🎉');
         setEmail('');
-
-        if (window.gtag) {
-          window.gtag('event', 'submit', {
-            event_category: 'Newsletter',
-            event_label: 'Contact Form',
-            value: 1
-          });
-        }
       } else {
-        setMessage('Subscription failed. Please try again.');
+        setMessage('Something went wrong. Please try again.');
       }
-    // eslint-disable-next-line no-unused-vars
-    } catch (error) {
-      setMessage('Error connecting to Formspree. Please try again.');
+    } catch {
+      setMessage('Unable to connect. Please check your network.');
     }
   };
 
   return (
     <ContactContainer id="contact">
-      <ContactTitle>Stay in Touch</ContactTitle>
-      <ContactSubtitle>
-        Sign up for our newsletter to receive updates, tips, and best practices on collaboration.
-      </ContactSubtitle>
-      <Form onSubmit={handleSubmit}>
-        <EmailInput
-          type="email"
-          required
-          placeholder="Enter your email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <SubscribeButton type="submit">Subscribe</SubscribeButton>
-      </Form>
-      {message && <ResponseMessage>{message}</ResponseMessage>}
+      <Card>
+        <ContactTitle>Stay in the Loop</ContactTitle>
+        <ContactSubtitle>
+          Get early access to features, updates, and productivity tips. No spam.
+        </ContactSubtitle>
+        <Form onSubmit={handleSubmit}>
+          <EmailInput
+            type="email"
+            required
+            placeholder="you@company.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Button type="submit">Subscribe</Button>
+        </Form>
+        {message && <Message>{message}</Message>}
+      </Card>
     </ContactContainer>
   );
 };
