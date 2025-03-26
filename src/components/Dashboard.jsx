@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { FaGithub, FaSlack, FaBitbucket, FaStickyNote, FaUserCircle } from 'react-icons/fa';
 import Navbar from './Navbar';
+import githubLogo from '../assets/Github-desktop-logo-symbol.svg.png';
+import slackLogo from '../assets/306_Slack_logo-512.png';
+import jiraLogo from '../assets/jira.svg';
+import trelloLogo from '../assets/trello.png';
 
 const fadeIn = keyframes`
   from { opacity: 0; transform: translateY(20px); }
@@ -75,51 +79,33 @@ const LeftColumn = styled.div`
 
 const ToolsGrid = styled.div`
   display: grid;
-  gap: 2rem;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 `;
+
 
 const ToolCard = styled.div`
   background: linear-gradient(145deg, #1c1c1c, #202020);
-  padding: 2rem 1.5rem;
-  border-radius: 18px;
-  text-align: center;
-  transition: all 0.3s ease;
-  position: relative;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+  padding: 1.2rem 1rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
   border: 1px solid #2b2b2b;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s, box-shadow 0.3s;
+  min-height: 230px;
 
   &:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.5);
     background: linear-gradient(145deg, #232323, #1e1e1e);
   }
 `;
 
-const IconContainer = styled.div`
-  width: 68px;
-  height: 68px;
-  border-radius: 50%;
-  background: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 1rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-  transition: transform 0.3s;
-
-  ${ToolCard}:hover & {
-    transform: scale(1.1);
-  }
-
-  svg {
-    width: 32px;
-    height: 32px;
-  }
-`;
-
 const ToolTitle = styled.h3`
-  font-size: 1.05rem;
+  font-size: 1rem;
   margin-bottom: 0.3rem;
   color: #fff;
   font-weight: 600;
@@ -127,9 +113,9 @@ const ToolTitle = styled.h3`
 
 const ToolDesc = styled.p`
   color: #aaa;
-  font-size: 0.85rem;
-  margin: 0.2rem 0 1rem;
-  min-height: 40px;
+  font-size: 0.8rem;
+  margin: 0.4rem 0 1rem;
+  flex-grow: 1;
 `;
 
 const ConnectButton = styled.button`
@@ -137,17 +123,71 @@ const ConnectButton = styled.button`
   background: #00bcd4;
   color: #000;
   border: none;
-  border-radius: 30px;
-  padding: 0.6rem 1.4rem;
-  font-size: 0.9rem;
+  border-radius: 20px;
+  padding: 0.5rem 1.2rem;
+  font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s, transform 0.2s;
-  box-shadow: 0 4px 12px rgba(0,188,212,0.3);
+  transition: background 0.3s ease;
+  margin-top: auto;
 
   &:hover {
     background: #00a6be;
-    transform: translateY(-1px);
+  }
+`;
+
+const IconContainer = styled.div`
+  width: 58px;
+  height: 58px;
+  border-radius: 12px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 0.8rem;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s;
+
+  img {
+    height: 28px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  ${ToolCard}:hover & {
+    transform: scale(1.1);
+  }
+`;
+
+const historyLogs = [
+  {
+    text: `[09:45] GitHub → Commit pushed by Sarah`,
+    link: 'https://github.com/your-repo/commit/abc123'
+  },
+  {
+    text: `[09:48] Slack → Message in #frontend`,
+    link: 'https://slack.com/app_redirect?channel=frontend'
+  },
+  {
+    text: `[10:01] Jira → Task "Auth bug" updated`,
+    link: 'https://your-domain.atlassian.net/browse/AUTH-99'
+  },
+  {
+    text: `[10:17] Trello → Card moved to Done`,
+    link: 'https://trello.com/c/yourCardId'
+  }
+];
+
+const ToggleSwitch = styled.span`
+  font-size: 0.85rem;
+  color: #00bcd4;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.3s;
+
+  &:hover {
+    color: #7de6ff;
+    text-decoration: underline;
   }
 `;
 
@@ -226,12 +266,21 @@ const Dashboard = ({ userInfo }) => {
   const [showNotionModal, setShowNotionModal] = useState(false);
   const [showBitbucketModal, setShowBitbucketModal] = useState(false);
 
+  const [connected, setConnected] = useState({
+    github: false,
+    slack: false,
+    jira: false,
+    trello: false
+  });
+  
   const teamStats = {
     connectedTools: "3 active",
     teamMembers: "12 contributors",
     commitsToday: "47 pushes",
     openIssues: "8 in progress"
   };
+
+  const [viewHistory, setViewHistory] = useState(false);
 
   const [logs, setLogs] = useState([]);
   useEffect(() => {
@@ -270,46 +319,83 @@ const Dashboard = ({ userInfo }) => {
           <LeftColumn>
             <SectionTitle>Tool Integrations</SectionTitle>
             <ToolsGrid>
-            <ToolCard onClick={() => setShowGitHubModal(true)}>
-              <IconContainer>
-                <FaGithub color="#24292e" />
-              </IconContainer>
+
+            <ToolCard>
+            <IconContainer>
+              <img src={githubLogo} alt="GitHub" />
+            </IconContainer>
               <ToolTitle>GitHub</ToolTitle>
               <ToolDesc>Sync repository data and track pull requests.</ToolDesc>
-              <ConnectButton onClick={() => setShowGitHubModal(true)}>
-                Connect GitHub
-              </ConnectButton>
+              <ConnectButton
+                  disabled={connected.github}
+                  onClick={() => {
+                    if (!connected.github) {
+                      alert("GitHub connected (demo)!");
+                      setConnected(prev => ({ ...prev, github: true }));
+                    }
+                  }}
+                >
+                  {connected.github ? 'Connected' : 'Connect GitHub'}
+                </ConnectButton>
             </ToolCard>
-              <ToolCard onClick={() => setShowSlackModal(true)}>
-                <IconContainer>
-                  <FaSlack color="#4A154B" />
-                </IconContainer>
+
+              <ToolCard>
+              <IconContainer>
+              <img src={slackLogo} alt="Slack" />
+            </IconContainer>
                 <ToolTitle>Slack</ToolTitle>
                 <ToolDesc>Analyze communication and sentiment trends.</ToolDesc>
-                <ConnectButton onClick={() => setShowSlackModal(true)}>
-                  Connect Slack
+                <ConnectButton
+                  disabled={connected.slack}
+                  onClick={() => {
+                    if (!connected.slack) {
+                      alert("Slack connected (demo)!");
+                      setConnected(prev => ({ ...prev, slack: true }));
+                    }
+                  }}
+                >
+                  {connected.slack ? 'Connected' : 'Connect Slack'}
                 </ConnectButton>
-              </ToolCard>
-              <ToolCard onClick={() => setShowNotionModal(true)}>
+                </ToolCard>
+
+                <ToolCard>
                 <IconContainer>
-                  <FaStickyNote color="#000" />
+                  <img src={jiraLogo} alt="Jira" />
                 </IconContainer>
-                <ToolTitle>Notion</ToolTitle>
-                <ToolDesc>Centralize documents and project boards.</ToolDesc>
-                <ConnectButton onClick={() => setShowNotionModal(true)}>
-                  Connect Notion
+                <ToolTitle>Jira</ToolTitle>
+                <ToolDesc>Sync tasks, issues, and sprint insights.</ToolDesc>
+                <ConnectButton
+                  disabled={connected.jira}
+                  onClick={() => {
+                    if (!connected.jira) {
+                      alert('Jira connected (demo)!');
+                      setConnected(prev => ({ ...prev, jira: true }));
+                    }
+                  }}
+                >
+                  {connected.jira ? 'Connected' : 'Connect Jira'}
                 </ConnectButton>
               </ToolCard>
-              <ToolCard onClick={() => setShowBitbucketModal(true)}>
-                <IconContainer>
-                  <FaBitbucket color="#205081" />
-                </IconContainer>
-                <ToolTitle>Bitbucket</ToolTitle>
-                <ToolDesc>View commit history and branch activity.</ToolDesc>
-                <ConnectButton onClick={() => setShowBitbucketModal(true)}>
-                  Connect Bitbucket
-                </ConnectButton>
-              </ToolCard>
+
+              <ToolCard>
+              <IconContainer>
+                <img src={trelloLogo} alt="Trello" />
+              </IconContainer>
+              <ToolTitle>Trello</ToolTitle>
+              <ToolDesc>Track boards, cards, and task flows in real time.</ToolDesc>
+              <ConnectButton
+                disabled={connected.trello}
+                onClick={() => {
+                  if (!connected.trello) {
+                    alert('Trello connected (demo)!');
+                    setConnected(prev => ({ ...prev, trello: true }));
+                  }
+                }}
+              >
+                {connected.trello ? 'Connected' : 'Connect Trello'}
+              </ConnectButton>
+            </ToolCard>
+
             </ToolsGrid>
           </LeftColumn>
 
@@ -334,15 +420,36 @@ const Dashboard = ({ userInfo }) => {
               </SummaryCard>
             </SummaryGrid>
 
-            <SectionTitle>Live Activity</SectionTitle>
+            <SectionTitle style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              Live Activity
+              <ToggleSwitch onClick={() => setViewHistory(!viewHistory)}>
+                {viewHistory ? '← Back to Live Feed' : 'View History →'}
+              </ToggleSwitch>
+            </SectionTitle>
+
             <TerminalBox>
-              {logs.map((log, idx) => (
-                <LogLine key={idx}>
-                  <LiveDot />
-                  {log}
-                </LogLine>
-              ))}
+              {viewHistory ? (
+                <>
+                  {historyLogs.map((log, idx) => (
+                    <LogLine key={idx}>
+                      <LiveDot /> 
+                      <a href={log.link} target="_blank" rel="noreferrer" style={{ color: '#7ee6e6' }}>
+                        {log.text}
+                      </a>
+                    </LogLine>
+                  ))}
+                </>
+              ) : (
+                <>
+                  {logs.map((log, idx) => (
+                    <LogLine key={idx}>
+                      <LiveDot /> {log}
+                    </LogLine>
+                  ))}
+                </>
+              )}
             </TerminalBox>
+     
           </RightColumn>
         </ContentArea>
       </DashboardContainer>
