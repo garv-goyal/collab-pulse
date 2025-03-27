@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { FaGithub, FaSlack, FaBitbucket, FaStickyNote, FaUserCircle } from 'react-icons/fa';
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 import Navbar from './Navbar';
 import githubLogo from '../assets/Github-desktop-logo-symbol.svg.png';
 import slackLogo from '../assets/306_Slack_logo-512.png';
@@ -178,6 +180,31 @@ const historyLogs = [
   }
 ];
 
+const MiniGaugeContainer = styled.div`
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  padding: 4px
+`;
+
+const MiniGauge = () => {
+  const score = 78; 
+  return (
+    <MiniGaugeContainer>
+      <CircularProgressbar
+        value={score}
+        text={`${score}%`}
+        styles={buildStyles({
+          textColor: "#fff",
+          pathColor: "#00bcd4",
+          trailColor: "#2c2f3a",
+          textSize: '24px'
+        })}
+      />
+    </MiniGaugeContainer>
+  );
+};
+
 const ToggleSwitch = styled.span`
   font-size: 0.85rem;
   color: #00bcd4;
@@ -271,7 +298,7 @@ const Dashboard = ({ userInfo }) => {
     slack: false,
     jira: false,
     trello: false
-  });
+  });  
   
   const teamStats = {
     connectedTools: "3 active",
@@ -304,6 +331,27 @@ const Dashboard = ({ userInfo }) => {
     return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   }
 
+  useEffect(() => {
+    const fetchIntegrationStatus = async () => {
+      try {
+        const token = localStorage.getItem('authToken');
+        const response = await fetch('http://localhost:5001/api/user/integrations', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        if (response.ok) {
+          const status = await response.json();
+          setConnected(status);
+        }
+      } catch (error) {
+        console.error('Error fetching integration status:', error);
+      }
+    };
+    fetchIntegrationStatus();
+  }, []);
+  
+
   return (
     <PageWrapper>
       <Navbar userInfo={userInfo} />
@@ -328,12 +376,7 @@ const Dashboard = ({ userInfo }) => {
               <ToolDesc>Sync repository data and track pull requests.</ToolDesc>
               <ConnectButton
                   disabled={connected.github}
-                  onClick={() => {
-                    if (!connected.github) {
-                      alert("GitHub connected (demo)!");
-                      setConnected(prev => ({ ...prev, github: true }));
-                    }
-                  }}
+                  onClick={() => window.location.href = "http://localhost:5001/api/auth/github"}
                 >
                   {connected.github ? 'Connected' : 'Connect GitHub'}
                 </ConnectButton>
@@ -347,12 +390,7 @@ const Dashboard = ({ userInfo }) => {
                 <ToolDesc>Analyze communication and sentiment trends.</ToolDesc>
                 <ConnectButton
                   disabled={connected.slack}
-                  onClick={() => {
-                    if (!connected.slack) {
-                      alert("Slack connected (demo)!");
-                      setConnected(prev => ({ ...prev, slack: true }));
-                    }
-                  }}
+                  onClick={() => window.location.href = "http://localhost:5001/api/auth/slack"}
                 >
                   {connected.slack ? 'Connected' : 'Connect Slack'}
                 </ConnectButton>
@@ -366,12 +404,7 @@ const Dashboard = ({ userInfo }) => {
                 <ToolDesc>Sync tasks, issues, and sprint insights.</ToolDesc>
                 <ConnectButton
                   disabled={connected.jira}
-                  onClick={() => {
-                    if (!connected.jira) {
-                      alert('Jira connected (demo)!');
-                      setConnected(prev => ({ ...prev, jira: true }));
-                    }
-                  }}
+                  onClick={() => window.location.href = "http://localhost:5001/api/auth/jira"}
                 >
                   {connected.jira ? 'Connected' : 'Connect Jira'}
                 </ConnectButton>
@@ -385,12 +418,7 @@ const Dashboard = ({ userInfo }) => {
               <ToolDesc>Track boards, cards, and task flows in real time.</ToolDesc>
               <ConnectButton
                 disabled={connected.trello}
-                onClick={() => {
-                  if (!connected.trello) {
-                    alert('Trello connected (demo)!');
-                    setConnected(prev => ({ ...prev, trello: true }));
-                  }
-                }}
+                onClick={() => window.location.href = "http://localhost:5001/api/auth/trello"}
               >
                 {connected.trello ? 'Connected' : 'Connect Trello'}
               </ConnectButton>
@@ -417,6 +445,10 @@ const Dashboard = ({ userInfo }) => {
               <SummaryCard>
                 <SummaryTitle>Open Issues</SummaryTitle>
                 <SummaryValue>{teamStats.openIssues}</SummaryValue>
+              </SummaryCard>
+              <SummaryCard>
+                <SummaryTitle>Collaboration Health</SummaryTitle>
+                <MiniGauge />
               </SummaryCard>
             </SummaryGrid>
 
