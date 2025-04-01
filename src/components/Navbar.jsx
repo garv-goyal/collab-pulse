@@ -1,8 +1,82 @@
-import React from 'react';
+import React, { useState } from 'react';
+import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
+
+const Nav = styled.nav`
+  padding: 1rem 2rem;
+  background-color: #2a4a55;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+`;
+
+const NavLeft = styled.div`
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+`;
+
+const NavLinks = styled.ul`
+  list-style: none;
+  display: flex;
+  gap: 3rem;
+  margin: 0;
+  font-size: 1.1rem;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    background-color: #2a4a55;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    padding: 1rem 2rem;
+    gap: 1rem;
+    display: ${props => (props.open ? 'flex' : 'none')};
+  }
+`;
+
+const NavLink = styled.li`
+  a {
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    &:hover {
+      color: #00bcd4;
+    }
+  }
+`;
+
+const NavRight = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+`;
+
+const LoginButton = styled.button`
+  background: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+`;
+
+const Hamburger = styled.button`
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  display: none;
+  @media (max-width: 768px) {
+    display: block;
+  }
+`;
 
 const Navbar = ({ userInfo }) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   const handleLogout = () => {
     localStorage.removeItem('authToken');
     window.location.href = '/';
@@ -12,164 +86,99 @@ const Navbar = ({ userInfo }) => {
     const section = document.getElementById(id);
     if (section) {
       section.scrollIntoView({ behavior: 'smooth' });
+      setMenuOpen(false);
     }
   };
 
   return (
-    <nav className="navbar" style={{ padding: '1rem 2rem', backgroundColor: '#2a4a55' }}>
-      <div className="nav-left" style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
-        CollabPulse
-      </div>
-
-      <ul className="nav-links" style={{ listStyle: 'none', display: 'flex', gap: '3rem',  fontSize: '1.1rem', margin: 0 }}>
+    <Nav>
+      <NavLeft>CollabPulse</NavLeft>
+      <Hamburger onClick={() => setMenuOpen(prev => !prev)}>
+        {menuOpen ? <FontAwesomeIcon icon={faTimes} /> : <FontAwesomeIcon icon={faBars} />}
+      </Hamburger>
+      <NavLinks open={menuOpen}>
         {userInfo ? (
           <>
-            <li>
-              <a
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection('dashboard');
-                }}
-                style={{ color: '#fff', textDecoration: 'none', cursor: 'pointer' }}
-              >
+            <NavLink>
+              <a onClick={(e) => { e.preventDefault(); scrollToSection('dashboard'); }}>
                 Dashboard
               </a>
-            </li>
-            <li>
-              <a
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection('projects');
-                }}
-                style={{ color: '#fff', textDecoration: 'none', cursor: 'pointer' }}
-              >
+            </NavLink>
+            <NavLink>
+              <a onClick={(e) => { e.preventDefault(); scrollToSection('projects'); }}>
                 Projects
               </a>
-            </li>
-            <li>
-              <a
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection('activity');
-                }}
-                style={{ color: '#fff', textDecoration: 'none', cursor: 'pointer' }}
-              >
+            </NavLink>
+            <NavLink>
+              <a onClick={(e) => { e.preventDefault(); scrollToSection('activity'); }}>
                 Activity Feed
               </a>
-            </li>
-            <li><a href="#settings" style={{ color: '#fff', textDecoration: 'none' }}>Settings</a></li>
-            <li><a href="#help" style={{ color: '#fff', textDecoration: 'none' }}>Help & Support</a></li>
+            </NavLink>
+            <NavLink>
+              <a href="#settings">Settings</a>
+            </NavLink>
+            <NavLink>
+              <a href="#help">Help & Support</a>
+            </NavLink>
           </>
         ) : (
           <>
-            <li>
-              <a
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection('hero');
-                }}
-                style={{ color: '#fff', textDecoration: 'none', cursor: 'pointer' }}
-              >
+            <NavLink>
+              <a onClick={(e) => { e.preventDefault(); scrollToSection('hero'); }}>
                 Home
               </a>
-            </li>
-            <li>
-              <a
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection('insights');
-                }}
-                style={{ color: '#fff', textDecoration: 'none', cursor: 'pointer' }}
-              >
+            </NavLink>
+            <NavLink>
+              <a onClick={(e) => { e.preventDefault(); scrollToSection('insights'); }}>
                 Insights
               </a>
-            </li>
-            <li>
-              <a
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection('collaborate');
-                }}
-                style={{ color: '#fff', textDecoration: 'none', cursor: 'pointer' }}
-              >
+            </NavLink>
+            <NavLink>
+              <a onClick={(e) => { e.preventDefault(); scrollToSection('collaborate'); }}>
                 Collaborate
               </a>
-            </li>
-            <li>
-              <a
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection('live');
-                }}
-                style={{ color: '#fff', textDecoration: 'none', cursor: 'pointer' }}
-              >
+            </NavLink>
+            <NavLink>
+              <a onClick={(e) => { e.preventDefault(); scrollToSection('live'); }}>
                 Live
               </a>
-            </li>
-            <li>
-              <a
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection('howitworks');
-                }}
-                style={{ color: '#fff', textDecoration: 'none', cursor: 'pointer' }}
-              >
+            </NavLink>
+            <NavLink>
+              <a onClick={(e) => { e.preventDefault(); scrollToSection('howitworks'); }}>
                 How It Works
               </a>
-            </li>
-            <li>
-              <a
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection('contact');
-                }}
-                style={{ color: '#fff', textDecoration: 'none', cursor: 'pointer' }}
-              >
+            </NavLink>
+            <NavLink>
+              <a onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }}>
                 Contact
               </a>
-            </li>
+            </NavLink>
           </>
         )}
-      </ul>
-
-      <div className="nav-right" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+      </NavLinks>
+      <NavRight>
         {userInfo ? (
           <>
             <span style={{ color: '#fff' }}>{userInfo.name}</span>
-            <button onClick={handleLogout} className="login-button" style={{
-              background: 'transparent',
-              border: '2px solid #fff',
-              color: '#fff',
-              padding: '0.5rem 0.8rem',
-              borderRadius: '6px',
-              cursor: 'pointer'
-            }}>
+            <LoginButton onClick={handleLogout}>
               <FontAwesomeIcon icon={faSignOutAlt} />
-            </button>
+            </LoginButton>
           </>
         ) : (
           <>
-            <a href="http://localhost:5001/api/auth/google" className="login-link" style={{
-              color: '#fff',
-              textDecoration: 'none',
-              fontWeight: '500'
-            }}>
+            <a
+              href="http://localhost:5001/api/auth/google"
+              style={{ color: '#fff', textDecoration: 'none', fontWeight: '500' }}
+            >
               Login
             </a>
-            <button className="login-button" onClick={() => window.location.href = "http://localhost:5001/api/auth/google"} style={{
-              background: 'transparent',
-              border: '2px solid #fff',
-              color: '#fff',
-              padding: '0.5rem 0.8rem',
-              borderRadius: '6px',
-              cursor: 'pointer'
-            }}>
+            <LoginButton onClick={() => window.location.href = "http://localhost:5001/api/auth/google"}>
               <FontAwesomeIcon icon={faSignOutAlt} />
-            </button>
+            </LoginButton>
           </>
         )}
-      </div>
-    </nav>
+      </NavRight>
+    </Nav>
   );
 };
 

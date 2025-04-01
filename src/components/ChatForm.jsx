@@ -11,6 +11,7 @@ const Form = styled.form`
   width: 100%;
     &:focus-within {
     border: 1px solid #284954;
+    background:rgb(240, 240, 240);
   }
 `;
 
