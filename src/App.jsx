@@ -11,6 +11,7 @@ import Dashboard from './components/Dashboard';
 import ScrollToTop from './components/ScrollToTop';
 import Footer from './components/Footer';
 import LivePulseSection from './components/LivePulseSection';
+import Chatbot from './components/Chatbot';
 
 const MainPage = () => (
   <>
@@ -21,8 +22,9 @@ const MainPage = () => (
     <LivePulseSection />
     <HowitWorks />
     <ContactSection />
-    <ScrollToTop />
+    {/* <ScrollToTop /> */}
     <Footer />
+    <Chatbot />
   </>
 );
 
