@@ -12,6 +12,7 @@ import ScrollToTop from './components/ScrollToTop';
 import Footer from './components/Footer';
 import LivePulseSection from './components/LivePulseSection';
 import Chatbot from './components/Chatbot';
+import { Analytics } from "@vercel/analytics/react"
 
 const MainPage = () => (
   <>
@@ -25,6 +26,7 @@ const MainPage = () => (
     {/* <ScrollToTop /> */}
     <Footer />
     <Chatbot />
+    <Analytics />
   </>
 );
 
