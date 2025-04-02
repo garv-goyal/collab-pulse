@@ -25,7 +25,7 @@ const MainPage = () => (
     <ContactSection />
     {/* <ScrollToTop /> */}
     <Footer />
-    <Chatbot />
+    {/* <Chatbot /> */}
     <Analytics />
   </>
 );

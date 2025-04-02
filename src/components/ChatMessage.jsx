@@ -24,8 +24,8 @@ const ChatMessage = ({ chat }) => {
   if (chat.hideInChat) return null;
   return (
     <MessageContainer role={chat.role}>
-      {chat.role === 'model' && <ChatbotIcon />}
-      <MessageText role={chat.role}>{chat.text}</MessageText>
+      {chat.role === 'model'}
+      <MessageText role={chat.role}>{chat.text || "Empty message"}</MessageText>
     </MessageContainer>
   );
 };

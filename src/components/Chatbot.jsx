@@ -153,6 +153,9 @@ const Chatbot = () => {
   
       const data = await response.json();
   
+      console.log("Response:", response);
+      console.log("Data:", data);
+
       if (!response.ok) {
         throw new Error(data?.error?.message || "Something went wrong");
       }
