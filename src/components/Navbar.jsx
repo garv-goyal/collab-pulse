@@ -24,7 +24,7 @@ const NavLinks = styled.ul`
   gap: 3rem;
   margin: 0;
   font-size: 1.1rem;
-  @media (max-width: 768px) {
+  @media (max-width: 1054px) {
     flex-direction: column;
     background-color: #2a4a55;
     position: absolute;
@@ -52,6 +52,11 @@ const NavRight = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
+  flex-wrap: wrap;
+
+  @media (max-width: 1054px) {
+    display: ${props => (props.hideOnMobile ? 'none' : 'flex')};
+  }
 `;
 
 const LoginButton = styled.button`
@@ -69,7 +74,7 @@ const Hamburger = styled.button`
   color: #fff;
   font-size: 1.5rem;
   display: none;
-  @media (max-width: 768px) {
+  @media (max-width: 1054px) {
     display: block;
   }
 `;
