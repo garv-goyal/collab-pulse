@@ -2,8 +2,6 @@
 
 CollabPulse is a web-based team collaboration health monitor that integrates with popular tools such as GitHub, Slack, Notion, and Bitbucket. It provides real-time insights into project dynamics and team performance, enabling teams to track activity, analyze communication sentiment, and receive actionable recommendations to optimize their workflows.
 
-### ⚠️ Currently working on this repository!
-
 --- 
 
 ## Features
